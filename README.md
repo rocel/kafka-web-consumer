@@ -9,7 +9,7 @@ _  __      __ _             __          __  _            _____                  
 The kafka web consumer is a tool that reads data from Kafka and display them in a web UI.
 
 ## Table of contnent
-- [How To Use](#how)
+- [How To Use](#how-to-use)
 - [Configuration](#Configuration)
 - [Components](#Components)
     - [Cards](#Cards)
