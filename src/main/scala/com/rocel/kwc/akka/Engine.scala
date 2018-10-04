@@ -44,7 +44,7 @@ object Engine {
       .withGroupId(s"kwc-${UUID.randomUUID()}")
       .withProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, if (fromBeginning) "earliest" else "latest")
 
-    val routes = wsMock(consumerSettings) ~ getUI
+    val routes = wsTopic(consumerSettings) ~ getUI
 
     val bindingFuture = Http().bindAndHandle(routes, "localhost", port)
     bindingFuture
@@ -84,34 +84,5 @@ object Engine {
         }
       }
     }
-
-  def wsMock(consumerSettings: ConsumerSettings[Array[Byte], String]) =
-    path("consume") {
-      parameters('topicName.as[String]) {
-        (topicName) => {
-          println(s"topicName $topicName")
-          val src = Source.tick(1 seconds, 500 milliseconds, 1)
-            .map(tick => TextMessage(
-              s"""
-                 |{
-                 |"id" : "${UUID.randomUUID()}",
-                 |"longitude" : "${math.random * (2.4126988 - 1.9315426) + 1.9315426}",
-                 |"latitude" : "${math.random * (47.052503 - 46.753854) + 46.753854}",
-                 |"some_metric" : "${math.random}",
-                 |"some_metric2" : "${math.random}",
-                 |"some_metric4" : "${math.random}",
-                 |"some_long_dimension" : "some_dimensino_valuee",
-                 |"some_long_dimension2" : "some_dimensino_value2",
-                 |"some_long_dimension3" : "some_dimensino_value3"
-                 |}
-               """.stripMargin))
-
-          extractUpgradeToWebSocket { upgrade =>
-            complete(upgrade.handleMessagesWithSinkSource(Sink.ignore, src))
-          }
-        }
-      }
-    }
-
 
 }

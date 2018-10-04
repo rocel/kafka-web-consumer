@@ -10,15 +10,16 @@ import scala.language.postfixOps
 object Main extends App {
 
   override def main(args: Array[String]): Unit = {
-    val header = """
-                   | _          __ _                           _
-                   || | ____ _ / _| | ____ _     __      _____| |__         ___ ___  _ __  ___ _   _ _ __ ___   ___ _ __
-                   || |/ / _` | |_| |/ / _` |____\ \ /\ / / _ \ '_ \ _____ / __/ _ \| '_ \/ __| | | | '_ ` _ \ / _ \ '__|
-                   ||   < (_| |  _|   < (_| |_____\ V  V /  __/ |_) |_____| (_| (_) | | | \__ \ |_| | | | | | |  __/ |
-                   ||_|\_\__,_|_| |_|\_\__,_|      \_/\_/ \___|_.__/       \___\___/|_| |_|___/\__,_|_| |_| |_|\___|_|
-                   |                                                                                                     
-                   |
-                   |""".stripMargin
+    val header =
+      """
+        | _          __ _                           _
+        || | ____ _ / _| | ____ _     __      _____| |__         ___ ___  _ __  ___ _   _ _ __ ___   ___ _ __
+        || |/ / _` | |_| |/ / _` |____\ \ /\ / / _ \ '_ \ _____ / __/ _ \| '_ \/ __| | | | '_ ` _ \ / _ \ '__|
+        ||   < (_| |  _|   < (_| |_____\ V  V /  __/ |_) |_____| (_| (_) | | | \__ \ |_| | | | | | |  __/ |
+        ||_|\_\__,_|_| |_|\_\__,_|      \_/\_/ \___|_.__/       \___\___/|_| |_|___/\__,_|_| |_| |_|\___|_|
+        |
+        |
+        |""".stripMargin
 
     val options = new Options()
 
@@ -26,15 +27,15 @@ object Main extends App {
     options.addOption(helpArg)
 
     val bootstrapServerArg = new Option("b", "bootstrap-server", true, "REQUIRED: The server to connect to.")
-    //    bootstrapServerArg.setRequired(true)
+    bootstrapServerArg.setRequired(true)
     options.addOption(bootstrapServerArg)
 
     val topicArg = new Option("t", "topic", true, "REQUIRED: The topic id to consume on.")
-    //    topicArg.setRequired(true)
+    topicArg.setRequired(true)
     options.addOption(topicArg)
 
     val componentArg = new Option("c", "component", true, "REQUIRED: Client component viewer [cards, list, map, pivot, table].")
-    //    componentArg.setRequired(true)
+    componentArg.setRequired(true)
     options.addOption(componentArg)
 
     val portArg = new Option("p", "port", true, "Port on which will start Kafka-Web-Consumer")
